@@ -5,6 +5,7 @@ public class Account {
 	private String firstName;
 	private String secondName;
 	private String accountNumber;
+	private boolean blocked = false;
 
 	public Account(String firstName, String secondName, String accountNumber) {
 		this.firstName = firstName;
@@ -36,4 +37,11 @@ public class Account {
 		this.accountNumber = accountNumber;
 	}
 
+	public boolean isBlocked() {
+		return blocked;
+	}
+
+	public void setBlocked(boolean blocked) {
+		this.blocked = blocked;
+	}
 }
