@@ -40,17 +40,19 @@ public class AccountService {
 		for(Integer key : accountMap.keySet()) {
 			if(accountMap.get(key).getAccountNumber() == string) {
 				accountMap.get(key).setBlocked(true);
+				System.out.println("Account number "+accountMap.get(key).getAccountNumber() + " is blocked");
 			}
 		}
 	}
 	
-	public String getBlockedAccounts() { 
-		String returnVal="";
+	public boolean isAccountBlocked(String accNum) { 
+		boolean isBlocked = false;
 		for(Integer key : accountMap.keySet()) {
-			if(accountMap.get(key).isBlocked()) {
-				returnVal += "Account number "+accountMap.get(key).getAccountNumber() + " is blocked";
+			if(accountMap.get(key).getAccountNumber() == accNum && accountMap.get(key).isBlocked()) {
+				System.out.println("Account number "+accountMap.get(key).getAccountNumber() + " is blocked");
+				isBlocked = true;
 			}
 		}
-		return returnVal;
+		return isBlocked;
 	}
 }
