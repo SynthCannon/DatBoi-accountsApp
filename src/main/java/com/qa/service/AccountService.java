@@ -36,4 +36,21 @@ public class AccountService {
 				.filter(eachAccount -> eachAccount.getFirstName().equals(firstNameOfAccount)).count();
 	}
 
+	public void blockAccount(String string) {
+		for(Integer key : accountMap.keySet()) {
+			if(accountMap.get(key).getAccountNumber() == string) {
+				accountMap.get(key).setBlocked(true);
+			}
+		}
+	}
+	
+	public String getBlockedAccounts() { 
+		String returnVal="";
+		for(Integer key : accountMap.keySet()) {
+			if(accountMap.get(key).isBlocked()) {
+				returnVal += "Account number "+accountMap.get(key).getAccountNumber() + " is blocked";
+			}
+		}
+		return returnVal;
+	}
 }
