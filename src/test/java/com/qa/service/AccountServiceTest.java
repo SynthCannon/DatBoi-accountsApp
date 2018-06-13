@@ -60,13 +60,11 @@ public class AccountServiceTest {
 
 	@Test
 	public void rejectAccountsWithAccountNum9999() {
-		Account joeGordon = new Account("Joe", "Gordon", "1234");
 		Account blockPerson = new Account("Block","Person","9999");
-		service.addAccountFromMap(joeGordon);
-		Assert.assertEquals(service.getBlockedAccounts(), "");
 		service.addAccountFromMap(blockPerson);
+		Assert.assertEquals(service.isAccountBlocked("9999"),false);
 		service.blockAccount("9999");
-		Assert.assertEquals(service.getBlockedAccounts(), "Account number 9999 is blocked");
+		Assert.assertEquals(service.isAccountBlocked("9999"),true);
 	}
 	
 }
