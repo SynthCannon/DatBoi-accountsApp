@@ -40,7 +40,7 @@ public class AccountServiceTest {
 	public void accountConversionToJSONTest() {
 		String emptyMap = util.getJSONForObject(service.getAccountMap());
 		Assert.assertEquals("{}", emptyMap);
-		String accountAsJSON = "{\"0\":{\"firstName\":\"Joe\",\"secondName\":\"Bloggs\",\"accountNumber\":\"1234\"},\"1\":{\"firstName\":\"Jane\",\"secondName\":\"Bloggs\",\"accountNumber\":\"1234\"}}";
+		String accountAsJSON = "{\"0\":{\"firstName\":\"Joe\",\"secondName\":\"Bloggs\",\"accountNumber\":\"1234\",\"blocked\":false},\"1\":{\"firstName\":\"Jane\",\"secondName\":\"Bloggs\",\"accountNumber\":\"1234\",\"blocked\":false}}";
 		Assert.assertEquals("{}", emptyMap);
 		service.addAccountFromMap(joeBloggs);
 		service.addAccountFromMap(janeBloggs);
@@ -58,4 +58,15 @@ public class AccountServiceTest {
 		Assert.assertEquals(service.getNumberOfAccountWithFirstName("Joe"), 2);
 	}
 
+	@Test
+	public void rejectAccountsWithAccountNum9999() {
+		Account joeGordon = new Account("Joe", "Gordon", "1234");
+		Account blockPerson = new Account("Block","Person","9999");
+		service.addAccountFromMap(joeGordon);
+		Assert.assertEquals(service.getBlockedAccounts(), "");
+		service.addAccountFromMap(blockPerson);
+		service.blockAccount("9999");
+		Assert.assertEquals(service.getBlockedAccounts(), "Account number 9999 is blocked");
+	}
+	
 }
