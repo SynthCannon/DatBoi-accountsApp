@@ -1,10 +1,22 @@
 package com.qa.domain;
 
-public class Account {
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+public class Account {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
+	@Column(length = 30)
 	private String firstName;
+	@Column(length = 30)
 	private String secondName;
+	@Column(length = 10)
 	private String accountNumber;
+	@Column(nullable = false)
 	private boolean blocked = false;
 
 	public Account(String firstName, String secondName, String accountNumber) {
