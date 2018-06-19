@@ -5,13 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.PrePersist;
 
 @Entity
 public class Account {
 
+	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@Column(length = 30)
@@ -20,20 +20,15 @@ public class Account {
 	private String secondName;
 	@Column(length = 10)
 	private String accountNumber;
-	@Column(length = 1)
-	private Boolean blocked;
+	@Column(columnDefinition="tinyint(1) default 0")
+	private boolean blocked;
+	
+	public Account() {}
 
 	public Account(String firstName, String secondName, String accountNumber) {
 		this.firstName = firstName;
 		this.secondName = secondName;
 		this.accountNumber = accountNumber;
-		this.blocked = false;
-	}
-	
-	@PrePersist
-	void preInsert() {
-		if(this.blocked == null)
-			this.blocked = false;
 	}
 
 	public String getFirstName() {
@@ -58,6 +53,14 @@ public class Account {
 
 	public void setAccountNumber(String accountNumber) {
 		this.accountNumber = accountNumber;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public boolean isBlocked() {
