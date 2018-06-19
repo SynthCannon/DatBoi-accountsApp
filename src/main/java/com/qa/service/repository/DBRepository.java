@@ -64,6 +64,30 @@ public class DBRepository implements RepositoryInterface {
 		}
 		return Constants.ACCOUNT_NOT_FOUND_MESSAGE;
 	}
+	
+	@Override
+	@Transactional(REQUIRED)
+	public String blockAccount(Long id) {
+		Account accountInDB = findAccount(id);
+		if (accountInDB != null) {
+			accountInDB.setBlocked(true);
+			manager.merge(accountInDB);
+			return Constants.BLOCKED_ACCOUNT_MESSAGE;
+		}
+		return Constants.ACCOUNT_NOT_FOUND_MESSAGE;
+	}
+
+	@Override
+	@Transactional(REQUIRED)
+	public String unblockAccount(Long id) {
+		Account accountInDB = findAccount(id);
+		if (accountInDB != null) {
+			accountInDB.setBlocked(false);
+			manager.merge(accountInDB);
+			return Constants.UNBLOCKED_ACCOUNT_MESSAGE;
+		}
+		return Constants.ACCOUNT_NOT_FOUND_MESSAGE;
+	}
 
 	private Account findAccount(Long id) {
 		return manager.find(Account.class, id);
@@ -76,6 +100,5 @@ public class DBRepository implements RepositoryInterface {
 	public void setUtil(JSONUtil util) {
 		this.util = util;
 	}
-
 
 }

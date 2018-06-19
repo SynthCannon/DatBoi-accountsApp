@@ -37,4 +37,14 @@ public class AccountServiceImpl implements AccountService {
 	public void setRepo(RepositoryInterface repo) {
 		this.repo = repo;
 	}
+
+	@Override
+	public String blockAccount(Long id) {
+		return repo.blockAccount(id);
+	}
+
+	@Override
+	public String unblockAccount(Long id) {
+		return repo.unblockAccount(id);
+	}
 }

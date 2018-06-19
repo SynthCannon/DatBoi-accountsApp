@@ -8,6 +8,7 @@ import javax.enterprise.inject.Alternative;
 import javax.inject.Inject;
 
 import com.qa.domain.Account;
+import com.qa.util.Constants;
 import com.qa.util.JSONUtil;
 
 @ApplicationScoped
@@ -50,7 +51,19 @@ public class MapRepository implements RepositoryInterface {
 	@Override
 	public String deleteAccount(Long id) {
 		accountMap.remove(id);
-		return "{\"message\": \"accout sucessfully removed\"}";
+		return Constants.DELETE_ACCOUNT_MESSAGE;
+	}
+	
+	@Override
+	public String blockAccount(Long id) {
+		accountMap.get(id).setBlocked(true);
+		return util.getJSONForObject(accountMap.get(id));
+	}
+
+	@Override
+	public String unblockAccount(Long id) {
+		accountMap.get(id).setBlocked(false);
+		return util.getJSONForObject(accountMap.get(id));
 	}
 
 	private void initAccountMap() {

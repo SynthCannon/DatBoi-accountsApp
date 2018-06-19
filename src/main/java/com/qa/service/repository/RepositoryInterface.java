@@ -9,5 +9,9 @@ public interface RepositoryInterface {
 	String updateAccount(Long id, String accountToUpdate);
 
 	String deleteAccount(Long id);
+	
+	String blockAccount(Long id);
+	
+	String unblockAccount(Long id);
 
 }
